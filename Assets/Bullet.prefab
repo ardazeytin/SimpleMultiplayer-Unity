@@ -23,6 +23,8 @@ GameObject:
   - 135: {fileID: 135000012933109988}
   - 23: {fileID: 23000010595223622}
   - 54: {fileID: 54000013726776210}
+  - 114: {fileID: 114000013731437386}
+  - 114: {fileID: 114000014264961530}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -94,6 +96,58 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114000013731437386
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013156471050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 61
+    i1: 113
+    i2: 236
+    i3: 142
+    i4: 108
+    i5: 52
+    i6: 142
+    i7: 164
+    i8: 42
+    i9: 129
+    i10: 230
+    i11: 168
+    i12: 91
+    i13: 19
+    i14: 166
+    i15: 174
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+--- !u!114 &114000014264961530
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013156471050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 3
+  m_SendInterval: 0
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!135 &135000012933109988
 SphereCollider:
   m_ObjectHideFlags: 1
