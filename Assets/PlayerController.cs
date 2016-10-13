@@ -1,21 +1,48 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : NetworkBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    public GameObject bulletPrefab;
+    public Transform bulletSpawn;
+
+    void Start () {
 	
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
         var z = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
 
         transform.Rotate(0, x, 0);
         transform.Translate(0, 0, z);
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Fire();
+        }
+
 	}
+
+    public override void OnStartLocalPlayer()
+    {
+        //base.OnStartLocalPlayer();
+        GetComponent<MeshRenderer>().material.color = Color.blue;
+    }
+
+    void Fire()
+    {
+        var bullet = (GameObject)Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation); // create
+        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 6; //velocity
+        Destroy(bullet, 2.0f);
+    }
 }
