@@ -21,8 +21,10 @@ public class Health : NetworkBehaviour {
         currentHealth -= amount;
         if (currentHealth <= 0)
         {
-            currentHealth = 0;
-            Debug.Log("Dead");
+            currentHealth = maxHealth;
+
+            //Client respawn call from server. (server to client)
+            RpcRespawn(); 
         }
 
         
@@ -31,5 +33,14 @@ public class Health : NetworkBehaviour {
     void OnChangeHealth(int health)
     {
         healthBar.sizeDelta = new Vector2(health, healthBar.sizeDelta.y);
+    }
+
+    [ClientRpc] //Opposite of Command. This works server to client.
+    void RpcRespawn()
+    {
+        if (!isLocalPlayer)
+        {
+            transform.position = Vector3.zero;
+        }
     }
 }
