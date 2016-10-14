@@ -150,6 +150,7 @@ MonoBehaviour:
   m_OnlineScene: 
   m_SpawnPrefabs:
   - {fileID: 1000013156471050, guid: 3d71ec8e6c348ea42a81e6a85b13a6ae, type: 2}
+  - {fileID: 1000011686293636, guid: 68fbacf77371f064bb04ffcbfb3f1316, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -233,8 +234,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a5d237e40795cb49a08c77796f2e744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 0}
-  numberOfEnemies: 0
+  enemyPrefab: {fileID: 1000011686293636, guid: 68fbacf77371f064bb04ffcbfb3f1316,
+    type: 2}
+  numberOfEnemies: 4
 --- !u!114 &506722140
 MonoBehaviour:
   m_ObjectHideFlags: 0
