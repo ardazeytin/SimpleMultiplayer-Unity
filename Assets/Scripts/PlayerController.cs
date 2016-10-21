@@ -8,13 +8,19 @@ public class PlayerController : NetworkBehaviour {
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
 
-    void Start () {
-	
-	}
+    Color[] colorList = new Color[] { Color.red, Color.yellow, Color.blue, Color.cyan, Color.magenta, Color.green };
+
+    [SyncVar]
+    Color color = Color.gray;
+
+
 	
 	// Update is called once per frame
+    [ClientCallback]
 	void Update ()
     {
+        GetComponent<MeshRenderer>().material.color = color;
+
         if (!isLocalPlayer)
         {
             return;
@@ -30,20 +36,34 @@ public class PlayerController : NetworkBehaviour {
         {
             CmdFire();
         }
-
 	}
 
-    public override void OnStartLocalPlayer()
-    {
-        //base.OnStartLocalPlayer();
-        GetComponent<MeshRenderer>().material.color = Color.blue;
-    }
+   
     [Command]
     void CmdFire()
     {
         var bullet = (GameObject)Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation); // create
-        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 6; //velocity
+        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 9; //velocity
         NetworkServer.Spawn(bullet);
         Destroy(bullet, 2.0f);
     }
+
+    public void OnGUI()
+    {
+        if (isLocalPlayer)
+        {
+            if (GUILayout.Button("Change Color"))
+            {
+                CmdChangeColor();
+            }
+        }
+    }
+
+    [Command]
+    void CmdChangeColor()
+    {
+        color = colorList[Random.Range(0, colorList.GetLength(0))];
+    }
+
+    
 }
