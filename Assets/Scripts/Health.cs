@@ -49,9 +49,9 @@ public class Health : NetworkBehaviour {
         
     }
 
-    void OnChangeHealth(int health)
+    void OnChangeHealth(int currentHealth)
     {
-        healthBar.sizeDelta = new Vector2(health, healthBar.sizeDelta.y);
+        healthBar.sizeDelta = new Vector2(currentHealth, healthBar.sizeDelta.y);
     }
 
     [ClientRpc] //Opposite of Command. This works server to client.
