@@ -8,10 +8,6 @@ public class PlayerController : NetworkBehaviour {
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
 
-    Color[] colorList = new Color[] { Color.red, Color.yellow, Color.blue, Color.cyan, Color.magenta, Color.green };
-
-    [SyncVar]
-    Color color = Color.gray;
 
 
 	
@@ -19,7 +15,7 @@ public class PlayerController : NetworkBehaviour {
     [ClientCallback]
 	void Update ()
     {
-        GetComponent<MeshRenderer>().material.color = color;
+        
 
         if (!isLocalPlayer)
         {
@@ -48,22 +44,7 @@ public class PlayerController : NetworkBehaviour {
         Destroy(bullet, 2.0f);
     }
 
-    public void OnGUI()
-    {
-        if (isLocalPlayer)
-        {
-            if (GUILayout.Button("Change Color"))
-            {
-                CmdChangeColor();
-            }
-        }
-    }
-
-    [Command]
-    void CmdChangeColor()
-    {
-        color = colorList[Random.Range(0, colorList.GetLength(0))];
-    }
+   
 
     
 }
