@@ -10,6 +10,7 @@ public class Health : NetworkBehaviour {
 
     [SyncVar(hook = "OnChangeHealth")]
     public int currentHealth = maxHealth;
+    Text informationText;
 
     public RectTransform healthBar;
 
@@ -23,9 +24,14 @@ public class Health : NetworkBehaviour {
 
     void Start()
     {
-        if (!isLocalPlayer)
+        //if (!isLocalPlayer)
+        //{
+        //    spawnPoints = FindObjectsOfType<NetworkStartPosition>();
+        //}
+        currentHealth = maxHealth;
+        if (isServer)
         {
-            spawnPoints = FindObjectsOfType<NetworkStartPosition>();
+            DeathMatchManager.AddPlayer(this);
         }
     }
     void Update()
@@ -41,7 +47,7 @@ public class Health : NetworkBehaviour {
 
     public void TakeDamage(int amount)
     {
-        if (!isServer)
+        if (!isServer || currentHealth <= 0)
         {
             return;
         }
@@ -49,20 +55,47 @@ public class Health : NetworkBehaviour {
         currentHealth -= amount;
         if (currentHealth <= 0)
         {
-            if (destroyOnDeath)
+            currentHealth = 0;
+            RpcDied();
+            if (DeathMatchManager.RemovePlayerAndCheckWinner(this))
             {
-                Destroy(gameObject);
+                Health player = DeathMatchManager.GetWinner();
+                player.RpcWon();
+                Invoke("BackToLobby", 3f);
             }
-            else
-            {
-                currentHealth = maxHealth;
 
-                //Client respawn call from server. (server to client)
-                CmdRespawnSvr();
-            }
+            return;
+        }   
+    }
+
+    [ClientRpc]
+    void RpcDied()
+    {
+        if (isLocalPlayer)
+        {
+            //disable player color here
+
+            informationText = GameObject.FindObjectOfType<Text>();
+            informationText.text = "Game Over";
+
+            //disable player functions
         }
+    }
 
-        
+    [ClientRpc]
+    public void RpcWon()
+    {
+        if (isLocalPlayer)
+        {
+            informationText = GameObject.FindObjectOfType<Text>();
+            informationText.text = "You Win";
+        }
+    }
+
+    void BackToLobby()
+    {
+        //Return to lobby
+        FindObjectOfType<NetworkLobbyManager>().ServerReturnToLobby();
     }
 
     void OnChangeHealth(int currentHealth)
