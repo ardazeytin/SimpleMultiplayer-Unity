@@ -71,14 +71,17 @@ public class Health : NetworkBehaviour {
     [ClientRpc]
     void RpcDied()
     {
+        GetComponent<PlayerColor>().HidePlayer(); //disable player color
+
         if (isLocalPlayer)
         {
-            //disable player color here
-
-            informationText = GameObject.FindObjectOfType<Text>();
+            //Write Game Over to loser screen
+            informationText = FindObjectOfType<Text>();
             informationText.text = "Game Over";
 
             //disable player functions
+            GetComponent<PlayerController_Net>().enabled = false;
+            GetComponent<Bullet>().enabled = false;
         }
     }
 
@@ -87,7 +90,7 @@ public class Health : NetworkBehaviour {
     {
         if (isLocalPlayer)
         {
-            informationText = GameObject.FindObjectOfType<Text>();
+            informationText = FindObjectOfType<Text>();
             informationText.text = "You Win";
         }
     }
