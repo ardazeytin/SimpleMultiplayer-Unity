@@ -17,10 +17,10 @@ public class Health : NetworkBehaviour {
     private NetworkStartPosition[] spawnPoints;
 
 
-    Color[] colorList = new Color[] { Color.red, Color.yellow, Color.blue, Color.cyan, Color.magenta, Color.green };
+    //Color[] colorList = new Color[] { Color.red, Color.yellow, Color.blue, Color.cyan, Color.magenta, Color.green };
 
-    [SyncVar]
-    Color color = Color.gray;
+    //[SyncVar]
+    //Color color = Color.gray;
 
     void Start()
     {
@@ -37,7 +37,7 @@ public class Health : NetworkBehaviour {
     void Update()
     {
 
-        GetComponent<MeshRenderer>().material.color = color;
+        //GetComponent<MeshRenderer>().material.color = color;
 
         if (!isLocalPlayer)
         {
@@ -130,22 +130,22 @@ public class Health : NetworkBehaviour {
         NetworkServer.ReplacePlayerForConnection(connectionToClient, newPlayer, playerControllerId);
     }
 
-    public void OnGUI()
-    {
-        if (isLocalPlayer)
-        {
-            if (GUILayout.Button("Change Color"))
-            {
-                CmdChangeColor();
-            }
-        }
-    }
+    //public void OnGUI()
+    //{
+    //    if (isLocalPlayer)
+    //    {
+    //        if (GUILayout.Button("Change Color"))
+    //        {
+    //            CmdChangeColor();
+    //        }
+    //    }
+    //}
 
-    [Command]
-    public void CmdChangeColor()
-    {
-        color = colorList[Random.Range(0, colorList.GetLength(0))];
-    }
+    //[Command]
+    //public void CmdChangeColor()
+    //{
+    //    color = colorList[Random.Range(0, colorList.GetLength(0))];
+    //}
 
 
 }

@@ -604,6 +604,7 @@ GameObject:
   - 114: {fileID: 11466428}
   - 114: {fileID: 11475086}
   - 114: {fileID: 11415508}
+  - 114: {fileID: 114000013305131412}
   m_Layer: 5
   m_Name: LobbyManager
   m_TagString: Untagged
@@ -3190,12 +3191,14 @@ MonoBehaviour:
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
-  m_PlayerPrefab: {fileID: 0}
+  m_PlayerPrefab: {fileID: 1000011802010646, guid: 6eab3109979194846b7f57d7947c96d2,
+    type: 2}
   m_AutoCreatePlayer: 1
-  m_PlayerSpawnMethod: 0
-  m_OfflineScene: NetworkLobby
+  m_PlayerSpawnMethod: 1
+  m_OfflineScene: Lobby
   m_OnlineScene: 
-  m_SpawnPrefabs: []
+  m_SpawnPrefabs:
+  - {fileID: 1000013156471050, guid: 3d71ec8e6c348ea42a81e6a85b13a6ae, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -3244,9 +3247,10 @@ MonoBehaviour:
   m_MinPlayers: 2
   m_LobbyPlayerPrefab: {fileID: 11487034, guid: ad727d7e1462ecc4f83c898ecc501997,
     type: 2}
-  m_GamePlayerPrefab: {fileID: 0}
-  m_LobbyScene: 
-  m_PlayScene: 
+  m_GamePlayerPrefab: {fileID: 1000011802010646, guid: 6eab3109979194846b7f57d7947c96d2,
+    type: 2}
+  m_LobbyScene: Lobby
+  m_PlayScene: Main
   lobbySlots: []
   prematchCountdown: 3
   topPanel: {fileID: 11424994}
@@ -5673,3 +5677,14 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 155310}
   m_IsPrefabParent: 1
+--- !u!114 &114000013305131412
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 155310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2653780f3eb4bc4bb0c5162ba4340b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
