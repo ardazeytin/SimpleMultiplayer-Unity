@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.Networking;
 
-public class PlayerController : NetworkBehaviour {
+public class PlayerController_Net : NetworkBehaviour {
 
     // Use this for initialization
     public GameObject bulletPrefab;
