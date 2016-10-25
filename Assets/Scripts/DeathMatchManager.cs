@@ -6,11 +6,13 @@ public class DeathMatchManager : MonoBehaviour {
 
     static List<Health> players = new List<Health>(); //list of players
 
+    //Add new player to list
     public static void AddPlayer(Health player)
     {
         players.Add(player);
     }
 
+    //Remove dead players(loser) from players list 
     public static bool RemovePlayerAndCheckWinner(Health player)
     {
         players.Remove(player);
@@ -23,6 +25,7 @@ public class DeathMatchManager : MonoBehaviour {
         return false;
     }
 
+    //Find last alive player from list to set winner
     public static Health GetWinner()
     {
         if (players.Count != 1)

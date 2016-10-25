@@ -10,41 +10,33 @@ public class Health : NetworkBehaviour {
 
     [SyncVar(hook = "OnChangeHealth")]
     public int currentHealth = maxHealth;
-    Text informationText;
+    Text informationText; //Win or Lose text variable
 
     public RectTransform healthBar;
 
-    private NetworkStartPosition[] spawnPoints;
-
-
-    //Color[] colorList = new Color[] { Color.red, Color.yellow, Color.blue, Color.cyan, Color.magenta, Color.green };
-
-    //[SyncVar]
-    //Color color = Color.gray;
+    private NetworkStartPosition[] spawnPoints; //array of spawn points
 
     void Start()
     {
-        //if (!isLocalPlayer)
-        //{
-        //    spawnPoints = FindObjectsOfType<NetworkStartPosition>();
-        //}
+        //Set all health to max
         currentHealth = maxHealth;
+
+        //Add player to server(from lobby)
         if (isServer)
         {
             DeathMatchManager.AddPlayer(this);
         }
     }
+
     void Update()
     {
-
-        //GetComponent<MeshRenderer>().material.color = color;
-
         if (!isLocalPlayer)
         {
             return;
         }
     }
 
+    //Damage system
     public void TakeDamage(int amount)
     {
         if (!isServer || currentHealth <= 0)
@@ -79,15 +71,17 @@ public class Health : NetworkBehaviour {
             informationText = FindObjectOfType<Text>();
             informationText.text = "Game Over";
 
-            //disable player functions
+            //disable player functions(These dirty codes need refactoring)
             GetComponent<PlayerController_Net>().enabled = false;
             GetComponent<Bullet>().enabled = false;
         }
     }
 
-    [ClientRpc]
+    [ClientRpc] 
+    //Server to client invoke 
     public void RpcWon()
     {
+        //Server sends string to winner
         if (isLocalPlayer)
         {
             informationText = FindObjectOfType<Text>();
@@ -95,9 +89,9 @@ public class Health : NetworkBehaviour {
         }
     }
 
+    //Return to lobby after end of match
     void BackToLobby()
     {
-        //Return to lobby
         FindObjectOfType<NetworkLobbyManager>().ServerReturnToLobby();
     }
 
@@ -106,24 +100,9 @@ public class Health : NetworkBehaviour {
         healthBar.sizeDelta = new Vector2(currentHealth, healthBar.sizeDelta.y);
     }
 
-    //[ClientRpc] //Opposite of Command. This works server to client.
-    //void RpcRespawn()
-    //{
-    //    if (!isLocalPlayer)
-    //    {
-    //        //set spawn point to the origin
-    //        Vector3 spawnPoint = Vector3.zero;
+    
 
-    //        //pick one randon spawn point
-    //        if (spawnPoints != null && spawnPoints.Length > 0)
-    //        {
-    //            spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
-    //        }
-
-    //        transform.position = spawnPoint;
-    //    }
-    //}
-
+    //Improved Spawn player codes
     [Command]
     void CmdRespawnSvr()
     {
@@ -132,6 +111,9 @@ public class Health : NetworkBehaviour {
         NetworkServer.Destroy(gameObject);
         NetworkServer.ReplacePlayerForConnection(connectionToClient, newPlayer, playerControllerId);
     }
+
+    //Improved codes
+    //Color selecting moved to new UI Lobby system. These codes only works in match. Useless for now. 
 
     //public void OnGUI()
     //{
@@ -150,5 +132,22 @@ public class Health : NetworkBehaviour {
     //    color = colorList[Random.Range(0, colorList.GetLength(0))];
     //}
 
+    //[ClientRpc] //Opposite of Command. This works server to client.
+    //void RpcRespawn()
+    //{
+    //    if (!isLocalPlayer)
+    //    {
+    //        //set spawn point to the origin
+    //        Vector3 spawnPoint = Vector3.zero;
+
+    //        //pick one randon spawn point
+    //        if (spawnPoints != null && spawnPoints.Length > 0)
+    //        {
+    //            spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
+    //        }
+
+    //        transform.position = spawnPoint;
+    //    }
+    //}
 
 }

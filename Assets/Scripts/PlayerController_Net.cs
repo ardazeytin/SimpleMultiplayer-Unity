@@ -4,19 +4,14 @@ using UnityEngine.Networking;
 
 public class PlayerController_Net : NetworkBehaviour {
 
-    // Use this for initialization
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
 
-
-
-	
-	// Update is called once per frame
+    //Player control input
     [ClientCallback]
 	void Update ()
     {
         
-
         if (!isLocalPlayer)
         {
             return;
@@ -34,7 +29,7 @@ public class PlayerController_Net : NetworkBehaviour {
         }
 	}
 
-   
+    //Spawn bullet on server (client to server)   
     [Command]
     void CmdFire()
     {
