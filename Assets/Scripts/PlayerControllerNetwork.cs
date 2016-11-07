@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerControllerNetwork : Photon.MonoBehaviour {
 
-    public float speed = 10f;
+    public float speed = 5f;
 
     bool firstTake = false;
 
@@ -64,6 +64,8 @@ public class PlayerControllerNetwork : Photon.MonoBehaviour {
 
             if (Input.GetKey(KeyCode.A))
                 GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position - Vector3.right * speed * Time.deltaTime);
+
+            InputColorChange();
         }
 
         if (!photonView.isMine)
@@ -71,6 +73,24 @@ public class PlayerControllerNetwork : Photon.MonoBehaviour {
             //Update remote player (smooth this, this looks good, at the cost of some accuracy)
             transform.position = Vector3.Lerp(transform.position, correctPlayerPos, Time.deltaTime * 5);
             transform.rotation = Quaternion.Lerp(transform.rotation, correctPlayerRot, Time.deltaTime * 5);
+        }
+    }
+
+    private void InputColorChange()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+            ChangeColorTo(new Vector3(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)));
+    }
+
+    [PunRPC]
+    void ChangeColorTo(Vector3 color)
+    {
+        GetComponent<Renderer>().material.color = new Color(color.x, color.y, color.z, 1f);
+
+        if (photonView.isMine)
+        {  
+            //GetComponent<NetworkView>().RPC("ChangeColorTo", RPCMode.OthersBuffered, color); <<--- old 
+            photonView.RPC("ChangeColorTo", PhotonTargets.OthersBuffered, color); // <<--- new
         }
     }
 }

@@ -67,7 +67,7 @@ public class ConnectAndJoinRandom : Photon.MonoBehaviour
     public void OnJoinedRoom()
     {
         Debug.Log("OnJoinedRoom() called by PUN. Now this client is in a room. From here on, your game would be running. For reference, all callbacks are listed in enum: PhotonNetworkingMessage");
-        GameObject Player = PhotonNetwork.Instantiate("PlayerKnight", new Vector3(UnityEngine.Random.Range(-6f, 6f), 5f, UnityEngine.Random.Range(-6f, 6f)), Quaternion.identity, 0);
+        GameObject Player = PhotonNetwork.Instantiate("PlayerKnight", new Vector3(UnityEngine.Random.Range(-4f, 4f), 5f, UnityEngine.Random.Range(-4f, 4f)), Quaternion.identity, 0);
     }
 
    
