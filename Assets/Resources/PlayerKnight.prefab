@@ -112,6 +112,7 @@ GameObject:
   - 114: {fileID: 114000013157458780}
   - 114: {fileID: 114000010605216674}
   - 114: {fileID: 114000014050646300}
+  - 114: {fileID: 114000012690858972}
   m_Layer: 0
   m_Name: PlayerKnight
   m_TagString: Untagged
@@ -299,6 +300,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  bulletPrefab: {fileID: 0}
+  bulletSpawn: {fileID: 0}
 --- !u!114 &114000012265859070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -353,6 +356,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114000012690858972
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014139852312}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d43748bc25b69204980a6f730820a8e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyOnDeath: 0
+  currentHealth: 100
+  healthBar: {fileID: 0}
 --- !u!114 &114000013157458780
 MonoBehaviour:
   m_ObjectHideFlags: 1

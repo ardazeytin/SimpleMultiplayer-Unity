@@ -4,6 +4,8 @@ using System.Collections;
 public class PlayerControllerNetwork : Photon.MonoBehaviour {
 
     public float speed = 5f;
+    public GameObject bulletPrefab;
+    public Transform bulletSpawn;
 
     bool firstTake = false;
 
@@ -65,6 +67,7 @@ public class PlayerControllerNetwork : Photon.MonoBehaviour {
             if (Input.GetKey(KeyCode.A))
                 GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position - Vector3.right * speed * Time.deltaTime);
 
+            Fire();
             InputColorChange();
         }
 
@@ -75,6 +78,29 @@ public class PlayerControllerNetwork : Photon.MonoBehaviour {
             transform.rotation = Quaternion.Lerp(transform.rotation, correctPlayerRot, Time.deltaTime * 5);
         }
     }
+
+    
+    void Fire()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            SpawnBullet();
+        }   
+    }
+
+    [PunRPC]
+    void SpawnBullet()
+    {
+        var bullet = (GameObject)Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation); // create
+        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 9; //velocity
+        //NetworkServer.Spawn(bullet);
+        Destroy(bullet, 2.0f);
+        if (photonView.isMine)
+        {
+            photonView.RPC("SpawnBullet", PhotonTargets.All, bullet);
+        }
+    }
+
 
     private void InputColorChange()
     {
