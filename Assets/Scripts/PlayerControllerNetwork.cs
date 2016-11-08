@@ -6,6 +6,7 @@ public class PlayerControllerNetwork : Photon.MonoBehaviour {
     public float speed = 5f;
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
+    private GameObject oldBullet;
 
     bool firstTake = false;
 
@@ -27,7 +28,7 @@ public class PlayerControllerNetwork : Photon.MonoBehaviour {
 
             stream.SendNext(transform.position);
             stream.SendNext(transform.rotation);
-            print("SendPos: " + transform.position);
+            //print("SendPos: " + transform.position);
         }
         else
         {
@@ -35,7 +36,7 @@ public class PlayerControllerNetwork : Photon.MonoBehaviour {
 
             correctPlayerPos = (Vector3)stream.ReceiveNext();
             correctPlayerRot = (Quaternion)stream.ReceiveNext();
-            print("RecievePos: " + transform.position);
+            //print("RecievePos: " + transform.position);
 
             // avoids lerping the character from "center" to the "current" position when this client joins
             if (firstTake)
@@ -82,23 +83,24 @@ public class PlayerControllerNetwork : Photon.MonoBehaviour {
     
     void Fire()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetMouseButtonDown(0))
         {
             SpawnBullet();
         }   
     }
 
-    [PunRPC]
+    
     void SpawnBullet()
     {
-        var bullet = (GameObject)Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation); // create
-        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 9; //velocity
-        //NetworkServer.Spawn(bullet);
-        Destroy(bullet, 2.0f);
-        if (photonView.isMine)
-        {
-            photonView.RPC("SpawnBullet", PhotonTargets.All, bullet);
-        }
+        GameObject bullet = PhotonNetwork.Instantiate("Bullet", bulletSpawn.position, bulletSpawn.rotation,0); // create
+        oldBullet = bullet;
+        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 9;
+        Invoke("DestroyBullet", 2f);
+    }
+
+    void DestroyBullet()
+    {
+        PhotonNetwork.Destroy(oldBullet);
     }
 
 

@@ -42,4 +42,7 @@ MonoBehaviour:
   - RpcDied
   - Won
   - SpawnBullet
+  - OnChangeHealth
+  - sendHealthToServer
+  - Died
   DisableAutoOpenWizard: 1

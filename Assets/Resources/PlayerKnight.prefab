@@ -95,7 +95,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000014139852312
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,9 +299,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43cc19cdd3baea24a895e7149145a0d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  bulletPrefab: {fileID: 0}
-  bulletSpawn: {fileID: 0}
+  speed: 3
+  bulletPrefab: {fileID: 1000013156471050, guid: 3d71ec8e6c348ea42a81e6a85b13a6ae,
+    type: 2}
+  bulletSpawn: {fileID: 4000013925415404}
 --- !u!114 &114000012265859070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -362,14 +363,15 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014139852312}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d43748bc25b69204980a6f730820a8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   destroyOnDeath: 0
+  graveStone: {fileID: 1000013714300760, guid: db5871be0500b534b8f8f9e41eb00c81, type: 2}
   currentHealth: 100
-  healthBar: {fileID: 0}
+  healthBar: {fileID: 224000011325155824}
 --- !u!114 &114000013157458780
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -392,6 +394,7 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents:
   - {fileID: 114000010605216674}
+  - {fileID: 114000012690858972}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
