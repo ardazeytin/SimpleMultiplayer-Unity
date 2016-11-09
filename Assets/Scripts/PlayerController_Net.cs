@@ -2,7 +2,8 @@
 using System.Collections;
 using UnityEngine.Networking;
 
-public class PlayerController_Net : NetworkBehaviour {
+public class PlayerController_Net : NetworkBehaviour
+{
 
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
@@ -29,7 +30,7 @@ public class PlayerController_Net : NetworkBehaviour {
         }
 	}
 
-    //Spawn bullet on server (client to server)   
+    //Spawn bullet on server when player press fire (client to server)   
     [Command]
     void CmdFire()
     {
@@ -38,8 +39,5 @@ public class PlayerController_Net : NetworkBehaviour {
         NetworkServer.Spawn(bullet);
         Destroy(bullet, 2.0f);
     }
-
-   
-
     
 }

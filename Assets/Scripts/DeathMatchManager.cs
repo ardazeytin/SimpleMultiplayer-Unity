@@ -2,8 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class DeathMatchManager : MonoBehaviour {
-
+public class DeathMatchManager : MonoBehaviour
+{
     static List<Health> players = new List<Health>(); //list of players
 
     //Add new player to list

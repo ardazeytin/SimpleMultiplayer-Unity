@@ -3,7 +3,8 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 
-public class Health : NetworkBehaviour {
+public class Health : NetworkBehaviour
+{
 
 	public const int maxHealth = 100;
     public bool destroyOnDeath;
