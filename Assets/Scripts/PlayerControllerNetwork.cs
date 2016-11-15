@@ -56,17 +56,24 @@ public class PlayerControllerNetwork : Photon.MonoBehaviour {
     {
         if (photonView.isMine)
         {
-            if (Input.GetKey(KeyCode.W))
-                GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + Vector3.forward * speed * Time.deltaTime);
+            //if (Input.GetKey(KeyCode.W))
+            //    GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + Vector3.forward * speed * Time.deltaTime);
 
-            if (Input.GetKey(KeyCode.S))
-                GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position - Vector3.forward * speed * Time.deltaTime);
+            //if (Input.GetKey(KeyCode.S))
+            //    GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position - Vector3.forward * speed * Time.deltaTime);
 
-            if (Input.GetKey(KeyCode.D))
-                GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + Vector3.right * speed * Time.deltaTime);
+            //if (Input.GetKey(KeyCode.D))
+            //    GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + Vector3.right * speed * Time.deltaTime);
+            //GetComponent<Rigidbody>().MoveRotation(GetComponent<Rigidbody>().rotation + (Quaternion.FromToRotation(Vector3.left,Vector3.right)); 
 
-            if (Input.GetKey(KeyCode.A))
-                GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position - Vector3.right * speed * Time.deltaTime);
+            //if (Input.GetKey(KeyCode.A))
+            //    GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position - Vector3.right * speed * Time.deltaTime);
+
+            var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
+            var z = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
+
+            transform.Rotate(0, x, 0);
+            transform.Translate(0, 0, z);
 
             Fire();
             InputColorChange();
